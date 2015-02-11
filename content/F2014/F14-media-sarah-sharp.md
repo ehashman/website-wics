@@ -125,7 +125,7 @@ Waterloo so far.  I will be talking and speaking and I'll be here for the next
 two days if you want to try to meet up or chat more.
 
 So when I was first asked to come to Waterloo, I had kind of an imposter
-syndrome moment, where I was like "Why would they want to invite me here?"
+syndrome moment, where I was like "...why would they want to invite me here?"
 And I was like, "No, you are awesome because you are a kernel developer, you
 wrote the USB3 driver and speak at conferences across the world and have done
 things like that Linux kernel developer panel with Linus Torvalds."  So when I
@@ -204,7 +204,7 @@ senior capstone credit for something I was already working on for a
 part-time volunteer position.
 
 There was one time I was really frustrated in a programming class that I was
-taking, and I was like, "Oh, this is yet another data structures assignment and
+taking, and I was like, "Oh, this is Yet Another Data Structures Assignment and
 they're having us do this weird list of trees of something else, kind of thing."
 And so my boyfriend and professor Bart Massey said, "Why don't you talk to the
 professor and see if the data structures class assignment could fit
@@ -219,7 +219,7 @@ for that because I negotiated with the professors so I could get credit.
 
 The lesson I took was basically rules can be bent.  Being able to talk with
 your professors and being able to get extra credit for cool projects or do
-projects with professors, that wasn't something I really thought of as this high
+projects with profs, that wasn't something I really thought of as this high
 school student from this really small town that's trying to follow the rules.
 It's fun to try to be able to find a project that you are passionate about and
 see if people will help you work on it.
@@ -249,11 +249,11 @@ read from the USB devices.  And they do that through an interface to the Linux
 kernel.
 
 So USBFS is basically that interface.  It is a bunch of system calls.  The
-type of system calls that it uses is actually Ioctls. Ioctls are like this really
+type of system calls that it uses is actually `ioctl`s. `ioctl`s are like this really
 weird system call that are like, if you can't find any other system call that
 fits, then you use this one.  Basically you just pass a blob down to it and it gets
 munged and people fix it in the kernel and decode it.  For USBFS 2,
-the goal of that was to replace these ioctl calls which were kind of ugly with
+the goal of that was to replace these `ioctl` calls which were kind of ugly with
 standard read-write system calls.  It fits that you were sitting there and trying to
 read data from the device or trying to write data to the device so it would
 make sense to be able to actually use the read-write system calls.  And we
@@ -262,16 +262,16 @@ multiple buffers to read from the device so we could saturate the bus
 bandwidth.  We didn't want them to block on each submission.  We said, "Okay,
 we need asynchronous completion of these buffers coming back from the devices."
 And there is a Linux kernel API that's called asynchronous I/O and we said "Oh,
-wouldn't it be great if we could just use that."  So it is a software
+wouldn't it be great if we could just use that?"  So it is a software
 engineering problem to find the right standard Linux kernel interfaces to try
-to replace this ugly ioctl.
+to replace this ugly `ioctl`.
 
 So the problem that we ran into was technical debt.  It turns out that at the
 time, the asynchronous I/O interface was only used by Oracle.  And it was used
 in a very specific way.  They would only write block-sized chunks and they
 would never try to cancel those reads or writes.  But the problem with USB
 devices is that if the USB device stops responding, you have to cancel the buffer
-you submitted to it. Otherwise you leak the buffer in the kernel.  We needed to
+you submitted to it. Otherwise, you leak the buffer in the kernel.  We needed to
 be able to use cancellation with asynchronous I/O, but cancellation with
 asynchronous I/O was completely broken.  So basically We had set up this nice
 big software engineering effort and it turned out technical debt stopped us
@@ -282,7 +282,7 @@ that I should go and present this work at the O'Reilly Open Source Conference, a
 I said "Oh, but it's not done, and it might not actually work." And he said,
 "You should present it anyway."  It turned out that Kristen Accardi was on the
 paper selection committee for the conference and she is a Linux kernel
-maintainer.  And it turned out she was a Linux kernel developer; she was the hot
+maintainer. She was the hot
 plug maintainer and she works on power management. Furthermore, she was one of Bart's master's degree students. So She
 said, "Hey Bart, when is Sarah graduating?"  We went in and I interviewed for a
 job.
